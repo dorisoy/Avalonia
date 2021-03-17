@@ -66,11 +66,11 @@ namespace Avalonia.Input.Navigation
         /// <param name="container">The element.</param>
         /// <param name="direction">The direction to search.</param>
         /// <returns>The element or null if not found.##</returns>
-        private static IInputElement GetFocusableDescendant(IInputElement container, NavigationDirection direction)
+        private static IInputElement? GetFocusableDescendant(IInputElement container, NavigationDirection direction)
         {
-            return direction == NavigationDirection.Next ?
+            return (direction == NavigationDirection.Next ?
                 GetFocusableDescendants(container, direction).FirstOrDefault() :
-                GetFocusableDescendants(container, direction).LastOrDefault();
+                GetFocusableDescendants(container, direction).LastOrDefault());
         }
 
         /// <summary>

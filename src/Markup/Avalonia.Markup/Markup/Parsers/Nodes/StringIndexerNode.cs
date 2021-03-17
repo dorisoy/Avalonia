@@ -23,9 +23,10 @@ namespace Avalonia.Markup.Parsers.Nodes
 
         protected override bool SetTargetValueCore(object value, BindingPriority priority)
         {
-            Target.TryGetTarget(out object target);
-
-            var typeInfo = target.GetType().GetTypeInfo();
+            Target.TryGetTarget(out var targetx);
+            var target = (Array?)targetx;
+            
+            var typeInfo = target?.GetType().GetTypeInfo();
             var list = target as IList;
             var dictionary = target as IDictionary;
             var indexerProperty = GetIndexer(typeInfo);
@@ -50,9 +51,9 @@ namespace Avalonia.Markup.Parsers.Nodes
                 var intArgs = convertedObjectArray.OfType<int>().ToArray();
 
                 // Try special cases where we can validate indices
-                if (typeInfo.IsArray)
+                if (typeInfo?.IsArray??false)
                 {
-                    return SetValueInArray((Array)target, intArgs, value);
+                    return SetValueInArray(target, intArgs, value);
                 }
                 else if (Arguments.Count == 1)
                 {
@@ -95,15 +96,15 @@ namespace Avalonia.Markup.Parsers.Nodes
             }
             // Multidimensional arrays end up here because the indexer search picks up the IList indexer instead of the
             // multidimensional indexer, which doesn't take the same number of arguments
-            else if (typeInfo.IsArray)
+            else if (typeInfo is not null && typeInfo.IsArray)
             {
-                SetValueInArray((Array)target, value);
+                SetValueInArray(target, value);
                 return true;
             }
             return false;
         }
 
-        private bool SetValueInArray(Array array, object value)
+        private bool SetValueInArray(Array? array, object value)
         {
             int[] intArgs;
             if (!ConvertArgumentsToInts(out intArgs))
@@ -112,7 +113,7 @@ namespace Avalonia.Markup.Parsers.Nodes
         }
 
 
-        private bool SetValueInArray(Array array, int[] indices, object value)
+        private bool SetValueInArray(Array? array, int[] indices, object value)
         {
             if (ValidBounds(indices, array))
             {
@@ -129,7 +130,7 @@ namespace Avalonia.Markup.Parsers.Nodes
         {
             get
             {
-                if (!Target.TryGetTarget(out object target))
+                if (!Target.TryGetTarget(out object? target))
                 {
                     return null;
                 }
@@ -138,7 +139,7 @@ namespace Avalonia.Markup.Parsers.Nodes
             }
         }
 
-        protected override object GetValue(object target)
+        protected override object? GetValue(object target)
         {
             var typeInfo = target.GetType().GetTypeInfo();
             var list = target as IList;
@@ -211,7 +212,7 @@ namespace Avalonia.Markup.Parsers.Nodes
             return AvaloniaProperty.UnsetValue;
         }
 
-        private object GetValueFromArray(Array array)
+        private object? GetValueFromArray(Array array)
         {
             int[] intArgs;
             if (!ConvertArgumentsToInts(out intArgs))
@@ -219,7 +220,7 @@ namespace Avalonia.Markup.Parsers.Nodes
             return GetValueFromArray(array, intArgs);
         }
 
-        private object GetValueFromArray(Array array, int[] indices)
+        private object? GetValueFromArray(Array array, int[] indices)
         {
             if (ValidBounds(indices, array))
             {
@@ -248,13 +249,13 @@ namespace Avalonia.Markup.Parsers.Nodes
 
         private static PropertyInfo? GetIndexer(TypeInfo? typeInfo)
         {
-            PropertyInfo indexer;
+            PropertyInfo? indexer;
 
             for (; typeInfo != null; typeInfo = typeInfo.BaseType?.GetTypeInfo())
             {
                 // Check for the default indexer name first to make this faster.
                 // This will only be false when a class in VB has a custom indexer name.
-                if ((indexer = typeInfo.GetDeclaredProperty(CommonPropertyNames.IndexerName)) != null)
+                if ((indexer = typeInfo.GetDeclaredProperty(CommonPropertyNames.IndexerName)) is not null)
                 {
                     return indexer;
                 }

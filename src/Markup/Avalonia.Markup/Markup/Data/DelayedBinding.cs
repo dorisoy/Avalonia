@@ -38,7 +38,7 @@ namespace Avalonia.Markup.Data
             else
             {
 
-                if (!_entries.TryGetValue(target, out List<Entry> bindings))
+                if (!_entries.TryGetValue(target, out var bindings))
                 {
                     bindings = new List<Entry>();
                     _entries.Add(target, bindings);
@@ -65,7 +65,7 @@ namespace Avalonia.Markup.Data
             }
             else
             {
-                List<Entry> bindings;
+                List<Entry>? bindings;
 
                 if (!_entries.TryGetValue(target, out bindings))
                 {
@@ -86,7 +86,7 @@ namespace Avalonia.Markup.Data
         /// <param name="control">The control.</param>
         public static void ApplyBindings(IStyledElement control)
         {
-            List<Entry> entries;
+            List<Entry>? entries;
 
             if (_entries.TryGetValue(control, out entries))
             {

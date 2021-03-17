@@ -332,7 +332,7 @@ namespace Avalonia.Input
             return false;
         }
 
-        private IInteractive GetSource(IVisual hit)
+        private IInteractive? GetSource(IVisual hit)
         {
             hit = hit ?? throw new ArgumentNullException(nameof(hit));
 
