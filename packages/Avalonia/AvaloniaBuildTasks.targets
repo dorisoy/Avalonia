@@ -77,7 +77,8 @@
       <AvaloniaXamlIlVerifyIl Condition="'$(AvaloniaXamlIlVerifyIl)' == ''">false</AvaloniaXamlIlVerifyIl>
     </PropertyGroup>
     <WriteLinesToFile
-      Condition="'$(_AvaloniaForceInternalMSBuild)' != 'true'"
+      Condition=
+        "'$(_AvaloniaForceInternalMSBuild)' != 'true'"
       File="$(AvaloniaXamlReferencesTemporaryFilePath)"
       Lines="@(ReferencePathWithRefAssemblies)"
       Overwrite="true" />

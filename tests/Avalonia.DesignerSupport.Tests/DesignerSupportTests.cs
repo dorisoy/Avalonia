@@ -19,7 +19,7 @@ namespace Avalonia.DesignerSupport.Tests
 {
     public class DesignerSupportTests
     {
-        private const string DesignerAppPath = "../../../../../src/tools/Avalonia.Designer.HostApp/bin/$BUILD/netcoreapp2.0/Avalonia.Designer.HostApp.dll";
+        private const string DesignerAppPath = "../../../../../src/tools/Avalonia.Designer.HostApp/bin/$BUILD/net5.0/Avalonia.Designer.HostApp.dll";
         private readonly Xunit.Abstractions.ITestOutputHelper outputHelper;
 
         public DesignerSupportTests(Xunit.Abstractions.ITestOutputHelper outputHelper)
@@ -29,25 +29,25 @@ namespace Avalonia.DesignerSupport.Tests
 
         [SkippableTheory,
          InlineData(
-            @"..\..\..\..\..\tests/Avalonia.DesignerSupport.TestApp/bin/$BUILD/netcoreapp3.1/",
+            @"..\..\..\..\..\tests/Avalonia.DesignerSupport.TestApp/bin/$BUILD/net5.0/",
             "Avalonia.DesignerSupport.TestApp",
             "Avalonia.DesignerSupport.TestApp.dll",
             @"..\..\..\..\..\tests\Avalonia.DesignerSupport.TestApp\MainWindow.xaml",
             "win32"),
          InlineData(
-            @"..\..\..\..\..\samples\ControlCatalog.NetCore\bin\$BUILD\netcoreapp3.1\",
+            @"..\..\..\..\..\samples\ControlCatalog.NetCore\bin\$BUILD\net5.0\",
             "ControlCatalog.NetCore",
             "ControlCatalog.dll",
             @"..\..\..\..\..\samples\ControlCatalog\MainWindow.xaml",
             "win32"),
         InlineData(
-            @"..\..\..\..\..\tests/Avalonia.DesignerSupport.TestApp/bin/$BUILD/netcoreapp3.1/",
+            @"..\..\..\..\..\tests/Avalonia.DesignerSupport.TestApp/bin/$BUILD/net5.0/",
             "Avalonia.DesignerSupport.TestApp",
             "Avalonia.DesignerSupport.TestApp.dll",
             @"..\..\..\..\..\tests\Avalonia.DesignerSupport.TestApp\MainWindow.xaml",
             "avalonia-remote"),
         InlineData(
-            @"..\..\..\..\..\samples\ControlCatalog.NetCore\bin\$BUILD\netcoreapp3.1\",
+            @"..\..\..\..\..\samples\ControlCatalog.NetCore\bin\$BUILD\net5.0\",
             "ControlCatalog.NetCore",
             "ControlCatalog.dll",
             @"..\..\..\..\..\samples\ControlCatalog\MainWindow.xaml",

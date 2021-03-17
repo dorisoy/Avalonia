@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,5 +17,5 @@
   <Import Project="..\..\build\NetCore.props" />
   <Import Project="..\..\build\NetFX.props" />
   <Import Project="..\Shared\PlatformSupport\PlatformSupport.projitems" />
-  <Import Project="..\..\build\ApiDiff.props" />
+  
 </Project>

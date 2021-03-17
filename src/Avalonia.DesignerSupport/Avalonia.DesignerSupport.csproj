@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <!-- WARNING! The designer support version number needs to be frozen 
          To allow projects that implement designer functionality to still
          work with newer versions of Avalonia. This version number only
@@ -27,5 +27,5 @@
     <ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
   </ItemGroup>
   <Import Project="..\..\build\Rx.props" />
-  <Import Project="..\..\build\ApiDiff.props" />
+  
 </Project>

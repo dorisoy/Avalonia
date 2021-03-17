@@ -187,7 +187,7 @@ partial class Build : NukeBuild
         using (var writer = new StreamWriter(stream))
         {
             await ObservablesForEventGenerator.ExtractEventsFromAssemblies(
-                writer, avaloniaAssemblies, new string[0], "netstandard2.0"
+                writer, avaloniaAssemblies, new string[0], "net5.0"
             );
         }
 

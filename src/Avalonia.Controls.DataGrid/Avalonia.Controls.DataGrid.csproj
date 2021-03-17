@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageId>Avalonia.Controls.DataGrid</PackageId>
   </PropertyGroup>
   <ItemGroup>
@@ -22,5 +22,5 @@
   <Import Project="..\..\build\EmbedXaml.props" />
   <Import Project="..\..\build\JetBrains.Annotations.props" />
   <Import Project="..\..\build\BuildTargets.targets" />
-  <Import Project="..\..\build\ApiDiff.props" />
+  
 </Project>

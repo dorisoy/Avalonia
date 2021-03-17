@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-      <TargetFrameworks>netstandard2.0;net461;netcoreapp2.0</TargetFrameworks>
+      <TargetFramework>net5.0</TargetFramework>
       <PackageId>Avalonia</PackageId>
   </PropertyGroup>
 
@@ -19,8 +19,8 @@
     <MSBuild Projects="$(DesignerHostAppPath)/Avalonia.Designer.HostApp/Avalonia.Designer.HostApp.csproj" Properties="Configuration=$(Configuration);&#xA;                         Platform=$(Platform)" />
 
     <ItemGroup>
-      <_PackageFiles Include="$(DesignerHostAppPath)/Avalonia.Designer.HostApp/bin/$(Configuration)/netcoreapp2.0/Avalonia.Designer.HostApp.dll">
-        <PackagePath>tools/netcoreapp2.0/designer</PackagePath>
+      <_PackageFiles Include="$(DesignerHostAppPath)/Avalonia.Designer.HostApp/bin/$(Configuration)/net5.0/Avalonia.Designer.HostApp.dll">
+        <PackagePath>tools/net5.0/designer</PackagePath>
         <Visible>false</Visible>
         <BuildAction>None</BuildAction>
       </_PackageFiles>

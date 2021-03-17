@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Nullable>Enable</Nullable>
     <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
   </PropertyGroup>
@@ -12,5 +12,5 @@
     <ProjectReference Include="..\Avalonia.Visuals\Avalonia.Visuals.csproj" />
   </ItemGroup>  
   <Import Project="..\..\build\Rx.props" />
-  <Import Project="..\..\build\ApiDiff.props" />
+  
 </Project>

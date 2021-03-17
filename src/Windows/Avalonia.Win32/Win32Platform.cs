@@ -286,7 +286,7 @@ namespace Avalonia.Win32
 
         private static void SetDpiAwareness()
         {
-            // Ideally we'd set DPI awareness in the manifest but this doesn't work for netcoreapp2.0
+            // Ideally we'd set DPI awareness in the manifest but this doesn't work for net5.0
             // apps as they are actually dlls run by a console loader. Instead we have to do it in code,
             // but there are various ways to do this depending on the OS version.
             var user32 = LoadLibrary("user32.dll");

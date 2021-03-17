@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Avalonia.Styling</AssemblyName>
     <RootNamespace>Avalonia</RootNamespace>
   </PropertyGroup>
@@ -8,5 +8,5 @@
     <ProjectReference Include="..\Avalonia.Animation\Avalonia.Animation.csproj" />
     <ProjectReference Include="..\Avalonia.Base\Avalonia.Base.csproj" />
   </ItemGroup>
-  <Import Project="..\..\build\ApiDiff.props" />
+  
 </Project>
