@@ -900,6 +900,15 @@ namespace Avalonia.Controls
                 constraint = constraint.WithHeight(maxAutoSize.Height);
             }
 
+            if (constraint.Height > availableSize.Height)
+            {
+                constraint = constraint.WithHeight(availableSize.Height);
+            }
+            if (constraint.Width > availableSize.Width)
+            {
+                constraint = constraint.WithWidth(availableSize.Width);
+            }
+
             var result = base.MeasureOverride(constraint);
 
             if (!sizeToContent.HasAllFlags(SizeToContent.Width))
