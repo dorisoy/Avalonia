@@ -7,6 +7,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Markup.Xaml.XamlIl;
 using Avalonia.Platform;
+using Avalonia.Styling;
 using ControlCatalog.Pages;
 
 namespace ControlCatalog
@@ -33,24 +34,39 @@ namespace ControlCatalog
             }
 
             var themes = this.Find<ComboBox>("Themes");
+            Styles myFancyStyles = new Styles
+            {
+                new StyleInclude(new Uri("avares://ControlCatalog/"))
+                {
+                    Source = new Uri("avares://ControlCatalog/MyFancyStyles.axaml")
+                }
+            };
             themes.SelectionChanged += (sender, e) =>
             {
                 switch (themes.SelectedIndex)
                 {
                     case 0:
-                        Application.Current.Styles[0] = App.FluentLight;
+                        Application.Current.Styles.Clear();
+                        Application.Current.Styles.Add(App.FluentLight);
+                        Application.Current.Styles.Add(myFancyStyles);
                         break;
                     case 1:
-                        Application.Current.Styles[0] = App.FluentDark;
+                        Application.Current.Styles.Clear();
+                        Application.Current.Styles.Add(App.FluentDark);
+                        Application.Current.Styles.Add(myFancyStyles);
                         break;
                     case 2:
-                        Application.Current.Styles[0] = App.DefaultLight;
+                        Application.Current.Styles.Clear();
+                        Application.Current.Styles.Add(App.DefaultLight);
+                        Application.Current.Styles.Add(myFancyStyles);
                         break;
                     case 3:
-                        Application.Current.Styles[0] = App.DefaultDark;
+                        Application.Current.Styles.Clear();
+                        Application.Current.Styles.Add(App.DefaultDark);
+                        Application.Current.Styles.Add(myFancyStyles);
                         break;
                 }
-            };            
+            };
 
             var decorations = this.Find<ComboBox>("Decorations");
             decorations.SelectionChanged += (sender, e) =>
