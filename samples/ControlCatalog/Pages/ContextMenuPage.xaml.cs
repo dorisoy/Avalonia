@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 using Avalonia.Controls;
@@ -21,6 +22,13 @@ namespace ControlCatalog.Pages
             var cancellableContextBorder = this.FindControl<Border>("CancellableContextBorder");
             cancellableContextBorder.ContextMenu!.ContextMenuClosing += ContextFlyoutPage_Closing;
             cancellableContextBorder.ContextMenu!.ContextMenuOpening += ContextFlyoutPage_Opening;
+            this.Find<Button>("test").Click += ContextMenuPage_Click;
+        }
+
+        private void ContextMenuPage_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new Window { ContextMenu = new ContextMenu {  Items = new List<MenuItem> { new MenuItem { Header = "test" , StaysOpenOnClick = true} } } };
+            window.Show();
         }
 
         private ContextPageViewModel _model;
