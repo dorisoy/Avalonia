@@ -1,13 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using System.Collections.Generic;
+using Avalonia.Controls;
 using Avalonia.Input.Raw;
-using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Platform;
 using Avalonia.Rendering;
 using Avalonia.UnitTests;
 using Avalonia.VisualTree;
 using Moq;
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Avalonia.Input.UnitTests
@@ -186,7 +186,34 @@ namespace Avalonia.Input.UnitTests
                     result);
             }
         }
+        [Fact]
+        public void Test()
+        {
+            var renderer = new Mock<IRenderer>();
+            var tmp = new Mock<IPlatformSettings>();
+            tmp.Setup(x => x.DoubleClickTime).Returns(new TimeSpan(200));
+            AvaloniaLocator.CurrentMutable.BindToSelf(this)
+               .Bind<IPlatformSettings>().ToConstant(tmp.Object);
+            using (TestApplication(renderer.Object))
+            {
+                var inputManager = InputManager.Instance;
+                var tb = new TextBox() {Height = 50, Width=50 };
+                var root = new TestRoot
+                {
+                    MouseDevice = new MouseDevice(),
+                    Child = tb
+                };
+                root.MouseDevice.Capture(tb);
+                tb.PointerPressed += (a, e) =>
+                {
+                      throw new Exception();
+                      //Assert.True(e.ClickCount == 1);
+                };
 
+                SendMouseClick(inputManager, root);
+
+            }
+        }
 
         [Fact]
         public void GetPosition_Should_Respect_Control_RenderTransform()
@@ -237,7 +264,16 @@ namespace Avalonia.Input.UnitTests
                 p,
                 RawInputModifiers.None));
         }
-
+        private void SendMouseClick(IInputManager inputManager, TestRoot root, Point p = new Point(), int clickCount = 1)
+        {
+            inputManager.ProcessInput(new RawPointerEventArgs(
+                root.MouseDevice,
+                0,
+                root,
+                RawPointerEventType.XButton2Down,
+                p,
+                RawInputModifiers.None));
+        }
         private void SetHit(Mock<IRenderer> renderer, IControl hit)
         {
             renderer.Setup(x => x.HitTest(It.IsAny<Point>(), It.IsAny<IVisual>(), It.IsAny<Func<IVisual, bool>>()))
