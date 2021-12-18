@@ -23,7 +23,30 @@
     <Thickness x:Key="TextControlThemePadding">10,6,6,5</Thickness>
     <sys:Double x:Key="IconElementThemeHeight">20</sys:Double>
     <sys:Double x:Key="IconElementThemeWidth">20</sys:Double>
+    <x:Double x:Key="AutoCompleteListMaxHeight">374</x:Double>
+    <Thickness x:Key="AutoCompleteListMargin">0,2,0,2</Thickness>
+    <Thickness x:Key="AutoCompleteListBorderThemeThickness">1</Thickness>
+    <Thickness x:Key="AutoCompleteListPadding">-1,0,-1,0</Thickness>
+    <x:Double x:Key="TextControlThemeMinHeight">32</x:Double>
+    <x:Double x:Key="TextControlThemeMinWidth">64</x:Double>
+    <x:Double x:Key="FlyoutThemeMaxWidth">456</x:Double>
+    <Thickness x:Key="DateTimeFlyoutButtonBorderThickness">0</Thickness>
+    <Thickness x:Key="DateTimeFlyoutBorderThickness">1</Thickness>
+    <Thickness x:Key="DateTimeFlyoutBorderPadding">0</Thickness>
 
+    <Thickness x:Key="FlyoutContentThemePadding">12,11,12,12</Thickness>
+    <x:Double x:Key="FlyoutThemeMinWidth">96</x:Double>
+    <x:Double x:Key="FlyoutThemeMinHeight">40</x:Double>
+    <x:Double x:Key="FlyoutThemeMaxHeight">758</x:Double>
+
+    <!-- Moved from FlyoutPresenter.xaml -->
+    <Thickness x:Key="FlyoutBorderThemePadding">0</Thickness>
+
+    <!-- Moved from MenuItem.xaml -->
+    <Thickness x:Key="MenuFlyoutScrollerMargin">0,4,0,4</Thickness>
+
+    <!-- Moved from Menu.xaml -->
+    <Thickness x:Key="MenuBarItemPadding">12,0,12,0</Thickness>
     <!-- Override system shape defaults -->
     <CornerRadius x:Key="ControlCornerRadius">3</CornerRadius>
     <CornerRadius x:Key="OverlayCornerRadius">5</CornerRadius>
