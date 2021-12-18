@@ -49,12 +49,20 @@ namespace ControlCatalog
                         {
                             Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml"),
                         };
+                        Application.Current.Styles[3] = new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+                        {
+                            Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesLight.xaml"),
+                        };
                     }
                     else if (theme == CatalogTheme.FluentDark)
                     {
                         Application.Current.Styles[1] = new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
                         {
                             Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseDark.xaml"),
+                        };
+                        Application.Current.Styles[3] = new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+                        {
+                            Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesDark.xaml"),
                         };
                     }
                     else if (theme == CatalogTheme.DefaultLight)

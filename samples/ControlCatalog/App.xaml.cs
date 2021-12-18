@@ -67,7 +67,7 @@ namespace ControlCatalog
             },
              new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
             {
-                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesDark.xaml"),
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesLight.xaml"),
             },
              new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
             {
