@@ -43,14 +43,28 @@ namespace ControlCatalog
             {
                 if (themes.SelectedItem is CatalogTheme theme)
                 {
-                    Application.Current.Styles[0] = theme switch
+                    if (theme== CatalogTheme.FluentLight)
                     {
-                        CatalogTheme.FluentLight => App.FluentLight,
-                        CatalogTheme.FluentDark => App.FluentDark,
-                        CatalogTheme.DefaultLight => App.DefaultLight,
-                        CatalogTheme.DefaultDark => App.DefaultDark,
-                        _ => Application.Current.Styles[0]
-                    };
+                        Application.Current.Styles[1] = new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+                        {
+                            Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml"),
+                        };
+                    }
+                    else if (theme == CatalogTheme.FluentDark)
+                    {
+                        Application.Current.Styles[1] = new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+                        {
+                            Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseDark.xaml"),
+                        };
+                    }
+                    else if (theme == CatalogTheme.DefaultLight)
+                    {
+
+                    }
+                    else if (theme == CatalogTheme.DefaultDark)
+                    {
+
+                    }
                 }
             };
 

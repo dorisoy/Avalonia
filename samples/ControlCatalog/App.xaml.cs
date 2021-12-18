@@ -30,16 +30,48 @@ namespace ControlCatalog
         {
             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
             {
-                Source = new Uri("avares://Avalonia.Themes.Fluent/FluentDark.xaml")
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/AccentColors.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseDark.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/Base.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesDark.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Controls/FluentControls.xaml"),
             },
             DataGridFluent
         };
 
         public static Styles FluentLight = new Styles
         {
-            new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+           new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
             {
-                Source = new Uri("avares://Avalonia.Themes.Fluent/FluentLight.xaml")
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/AccentColors.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/Base.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesDark.xaml"),
+            },
+             new StyleInclude(new Uri("avares://ControlCatalog/Styles"))
+            {
+                Source = new Uri("avares://Avalonia.Themes.Fluent/Controls/FluentControls.xaml"),
             },
             DataGridFluent
         };
@@ -96,7 +128,11 @@ namespace ControlCatalog
 
         public override void Initialize()
         {
-            Styles.Insert(0, FluentLight);
+           
+            foreach (var item in FluentLight)
+            {
+                Styles.Add(item);
+            }
 
             AvaloniaXamlLoader.Load(this);
         }
