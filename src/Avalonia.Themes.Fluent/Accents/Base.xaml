@@ -13,6 +13,18 @@
     <converters:CornerRadiusFilterConverter x:Key="RightCornerRadiusFilterConverter" Filter="TopRight, BottomRight"/>
     <converters:CornerRadiusFilterConverter x:Key="BottomCornerRadiusFilterConverter" Filter="BottomLeft, BottomRight"/>
     <converters:CornerRadiusFilterConverter x:Key="LeftCornerRadiusFilterConverter" Filter="TopLeft, BottomLeft"/>
+    <StaticResource x:Key="AccentButtonBorderBrush" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="AccentButtonBorderBrushPointerOver" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ButtonBorderBrush" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ButtonBorderBrushPointerOver" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ToggleButtonBorderBrush" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ToggleButtonBorderBrushPointerOver" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ToggleButtonBorderBrushIndeterminate" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="DateTimePickerFlyoutButtonBorderBrush" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ScrollBarTrackStroke" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="ScrollBarTrackStrokePointerOver" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="RepeatButtonBorderBrush" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="RepeatButtonBorderBrushPointerOver" ResourceKey="SystemControlTransparentBrush" />
     <StaticResource x:Key="AccentButtonBorderBrushDisabled" ResourceKey="SystemControlTransparentBrush" />
     <StaticResource x:Key="ButtonBorderBrushDisabled" ResourceKey="SystemControlTransparentBrush" />
     <StaticResource x:Key="ScrollBarThumbFillDisabled" ResourceKey="SystemControlTransparentBrush" />
@@ -157,7 +169,6 @@
     <TransformOperations x:Key="VerticalSmallScrollThumbScaleTransform">scaleX(0.125) translateX(-2px)</TransformOperations>
     <TransformOperations x:Key="HorizontalSmallScrollThumbScaleTransform">scaleY(0.125) translateY(-2px)</TransformOperations>
 
-    <SolidColorBrush x:Key="SystemControlForegroundTransparentBrush" Color="Transparent" />
     <SolidColorBrush x:Key="SystemControlHighlightAltTransparentBrush" Color="Transparent" />
     <SolidColorBrush x:Key="SystemControlHighlightTransparentBrush" Color="Transparent" />
     <SolidColorBrush x:Key="SystemControlPageBackgroundTransparentBrush" Color="Transparent" />
