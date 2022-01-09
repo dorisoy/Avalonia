@@ -66,12 +66,10 @@ namespace Avalonia.Themes.Fluent
                 if (Mode == FluentThemeMode.Dark)
                 {
                     (Loaded as Styles)![1] = _fluentDark[0];
-                    (Loaded as Styles)![2] = _fluentDark[1];
                 }
                 else
                 {
                     (Loaded as Styles)![1] = _fluentLight[0];
-                    (Loaded as Styles)![2] = _fluentLight[1];
                 }
             }
         }
@@ -91,11 +89,11 @@ namespace Avalonia.Themes.Fluent
 
                     if (Mode == FluentThemeMode.Light)
                     {
-                        _loaded = new Styles() { _sharedStyles , _fluentLight[0], _fluentLight[1] };
+                        _loaded = new Styles() { _sharedStyles , _fluentLight[0], _fluentLight[1], _fluentLight[2] };
                     }
                     else if (Mode == FluentThemeMode.Dark)
                     {
-                        _loaded = new Styles() { _sharedStyles, _fluentDark[0], _fluentDark[1] };
+                        _loaded = new Styles() { _sharedStyles, _fluentDark[0], _fluentDark[1], _fluentDark[2] };
                     }
                     _isLoading = false;
                 }
@@ -148,10 +146,6 @@ namespace Avalonia.Themes.Fluent
             {
                 new StyleInclude(baseUri)
                 {
-                    Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/AccentColors.xaml")
-                },
-                new StyleInclude(baseUri)
-                {
                     Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/Base.xaml")
                 },
                 new StyleInclude(baseUri)
@@ -164,6 +158,10 @@ namespace Avalonia.Themes.Fluent
             {
                 new StyleInclude(baseUri)
                 {
+                    Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/Light.xaml")
+                },
+                new StyleInclude(baseUri)
+                {
                     Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml")
                 },
                 new StyleInclude(baseUri)
@@ -174,6 +172,10 @@ namespace Avalonia.Themes.Fluent
 
             _fluentDark = new Styles
             {
+                new StyleInclude(baseUri)
+                {
+                    Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/Dark.xaml")
+                },
                 new StyleInclude(baseUri)
                 {
                     Source = new Uri("avares://Avalonia.Themes.Fluent/Accents/BaseDark.xaml")
