@@ -1,35 +1,40 @@
 using System;
 using System.Runtime.InteropServices;
-using Avalonia.Platform;
 using Avalonia.Platform.Interop;
 
-namespace Avalonia.Shared.PlatformSupport
+// ReSharper disable InconsistentNaming
+namespace Avalonia.PlatformSupport
 {
-#if !__IOS__
     class UnixLoader : IDynamicLibraryLoader
     {
-        // ReSharper disable InconsistentNaming
         static class LinuxImports
         {
-#if __ANDROID__
-            [DllImport("libdl.so")]
-#else
             [DllImport("libdl.so.2")]
-#endif
             private static extern IntPtr dlopen(string path, int flags);
 
-#if __ANDROID__
-            [DllImport("libdl.so")]
-#else
             [DllImport("libdl.so.2")]
-#endif
             private static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-#if __ANDROID__
-            [DllImport("libdl.so")]
-#else
             [DllImport("libdl.so.2")]
-#endif
+            private static extern IntPtr dlerror();
+
+            public static void Init()
+            {
+                DlOpen = dlopen;
+                DlSym = dlsym;
+                DlError = dlerror;
+            }
+        }
+
+        static class AndroidImports
+        {
+            [DllImport("libdl.so")]
+            private static extern IntPtr dlopen(string path, int flags);
+
+            [DllImport("libdl.so")]
+            private static extern IntPtr dlsym(IntPtr handle, string symbol);
+
+            [DllImport("libdl.so")]
             private static extern IntPtr dlerror();
 
             public static void Init()
@@ -42,8 +47,6 @@ namespace Avalonia.Shared.PlatformSupport
 
         static class OsXImports
         {
-            
-            
             [DllImport("/usr/lib/libSystem.dylib")]
             private static extern IntPtr dlopen(string path, int flags);
 
@@ -72,8 +75,12 @@ namespace Avalonia.Shared.PlatformSupport
             uname(buffer);
             var unixName = Marshal.PtrToStringAnsi(buffer);
             Marshal.FreeHGlobal(buffer);
-            if(unixName == "Darwin")
+            if (unixName == "Darwin")
                 OsXImports.Init();
+#if NET6_0_OR_GREATER
+            else if (OperatingSystem.IsAndroid())
+                AndroidImports.Init();
+#endif
             else
                 LinuxImports.Init();
         }
@@ -129,8 +136,7 @@ namespace Avalonia.Shared.PlatformSupport
         }
     }
     
-#else
-    internal class IOSLoader : IDynamicLibraryLoader
+    internal class NotSupportedLoader : IDynamicLibraryLoader
     {
         IntPtr IDynamicLibraryLoader.LoadLibrary(string dll)
         {
@@ -142,5 +148,4 @@ namespace Avalonia.Shared.PlatformSupport
             throw new PlatformNotSupportedException();
         }
     }
-#endif
 }
