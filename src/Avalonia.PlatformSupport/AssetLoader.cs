@@ -3,207 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Threading;
 using Avalonia.Platform;
-using Avalonia.Platform.Interop;
 using Avalonia.Utilities;
 
-namespace Avalonia.Shared.PlatformSupport
+namespace Avalonia.PlatformSupport
 {
-    static class StandardRuntimePlatformServices
-    {
-        public static void Register(Assembly assembly = null)
-        {
-            var standardPlatform = new StandardRuntimePlatform();
-            AssetLoader.RegisterResUriParsers();
-            AvaloniaLocator.CurrentMutable
-                .Bind<IRuntimePlatform>().ToConstant(standardPlatform)
-                .Bind<IAssetLoader>().ToConstant(new AssetLoader(assembly))
-                .Bind<IDynamicLibraryLoader>().ToConstant(
-#if __IOS__
-                    new IOSLoader()
-#else
-                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                    ? (IDynamicLibraryLoader)new Win32Loader()
-                    : new UnixLoader()
-#endif
-                );
-        }
-    }
-    
-    
-    internal partial class StandardRuntimePlatform : IRuntimePlatform
-    {
-        public IDisposable StartSystemTimer(TimeSpan interval, Action tick)
-        {
-            return new Timer(_ => tick(), null, interval, interval);
-        }
-
-        public IUnmanagedBlob AllocBlob(int size) => new UnmanagedBlob(this, size);
-        
-        class UnmanagedBlob : IUnmanagedBlob
-        {
-            private readonly StandardRuntimePlatform _plat;
-            private IntPtr _address;
-            private readonly object _lock = new object();
-#if DEBUG
-            private static readonly List<string> Backtraces = new List<string>();
-            private static Thread GCThread;
-            private readonly string _backtrace;
-            private static readonly object _btlock = new object();
-
-            class GCThreadDetector
-            {
-                ~GCThreadDetector()
-                {
-                    GCThread = Thread.CurrentThread;
-                }
-            }
-
-            [MethodImpl(MethodImplOptions.NoInlining)]
-            static void Spawn() => new GCThreadDetector();
-            
-            static UnmanagedBlob()
-            {
-                Spawn();
-                GC.WaitForPendingFinalizers();
-            }
-            
-#endif
-            
-            public UnmanagedBlob(StandardRuntimePlatform plat, int size)
-            {
-                if (size <= 0)
-                    throw new ArgumentException("Positive number required", nameof(size));
-                _plat = plat;
-                _address = plat.Alloc(size);
-                GC.AddMemoryPressure(size);
-                Size = size;
-#if DEBUG
-                _backtrace = Environment.StackTrace;
-                lock (_btlock)
-                    Backtraces.Add(_backtrace);
-#endif
-            }
-
-            void DoDispose()
-            {
-                lock (_lock)
-                {
-                    if (!IsDisposed)
-                    {
-#if DEBUG
-                        lock (_btlock)
-                            Backtraces.Remove(_backtrace);
-#endif
-                        _plat?.Free(_address, Size);
-                        GC.RemoveMemoryPressure(Size);
-                        IsDisposed = true;
-                        _address = IntPtr.Zero;
-                        Size = 0;
-                    }
-                }
-            }
-
-            public void Dispose()
-            {
-#if DEBUG
-                if (Thread.CurrentThread.ManagedThreadId == GCThread?.ManagedThreadId)
-                {
-                    lock (_lock)
-                    {
-                        if (!IsDisposed)
-                        {
-                            Console.Error.WriteLine("Native blob disposal from finalizer thread\nBacktrace: "
-                                                 + Environment.StackTrace
-                                                 + "\n\nBlob created by " + _backtrace);
-                        }
-                    }
-                }
-#endif
-                DoDispose();
-                GC.SuppressFinalize(this);
-            }
-
-            ~UnmanagedBlob()
-            {
-#if DEBUG
-                Console.Error.WriteLine("Undisposed native blob created by " + _backtrace);
-#endif
-                DoDispose();
-            }
-
-            public IntPtr Address => IsDisposed ? throw new ObjectDisposedException("UnmanagedBlob") : _address; 
-            public int Size { get; private set; }
-            public bool IsDisposed { get; private set; }
-        }
-        
-        
-        
-#if NET461 || NETCOREAPP2_0
-        [DllImport("libc", SetLastError = true)]
-        private static extern IntPtr mmap(IntPtr addr, IntPtr length, int prot, int flags, int fd, IntPtr offset);
-        [DllImport("libc", SetLastError = true)]
-        private static extern int munmap(IntPtr addr, IntPtr length);
-        [DllImport("libc", SetLastError = true)]
-        private static extern long sysconf(int name);
-
-        private bool? _useMmap;
-        private bool UseMmap 
-            => _useMmap ?? ((_useMmap = GetRuntimeInfo().OperatingSystem == OperatingSystemType.Linux)).Value;
-        
-        IntPtr Alloc(int size)
-        {
-            if (UseMmap)
-            {
-                var rv = mmap(IntPtr.Zero, new IntPtr(size), 3, 0x22, -1, IntPtr.Zero);
-                if (rv.ToInt64() == -1 || (ulong) rv.ToInt64() == 0xffffffff)
-                {
-                    var errno = Marshal.GetLastWin32Error();
-                    throw new Exception("Unable to allocate memory: " + errno);
-                }
-                return rv;
-            }
-            else
-                return Marshal.AllocHGlobal(size);
-        }
-
-        void Free(IntPtr ptr, int len)
-        {
-            if (UseMmap)
-            {
-                if (munmap(ptr, new IntPtr(len)) == -1)
-                {
-                    var errno = Marshal.GetLastWin32Error();
-                    throw new Exception("Unable to free memory: " + errno);
-                }
-            }
-            else
-                Marshal.FreeHGlobal(ptr);
-        }
-#else
-        IntPtr Alloc(int size) => Marshal.AllocHGlobal(size);
-        void Free(IntPtr ptr, int len) => Marshal.FreeHGlobal(ptr);
-#endif
-        
-
-    }
-    
-    internal class IOSLoader : IDynamicLibraryLoader
-    {
-        IntPtr IDynamicLibraryLoader.LoadLibrary(string dll)
-        {
-            throw new PlatformNotSupportedException();
-        }
-
-        IntPtr IDynamicLibraryLoader.GetProcAddress(IntPtr dll, string proc, bool optional)
-        {
-            throw new PlatformNotSupportedException();
-        }
-    }
-    
+    /// <summary>
+    /// Loads assets compiled into the application binary.
+    /// </summary>
     public class AssetLoader : IAssetLoader
     {
         private const string AvaloniaResourceName = "!AvaloniaResources";
@@ -427,14 +234,15 @@ namespace Avalonia.Shared.PlatformSupport
                 else
                 {
                     // iOS does not support loading assemblies dynamically!
-                    //
-#if __IOS__
-                    throw new InvalidOperationException(
-                        $"Assembly {name} needs to be referenced and explicitly loaded before loading resources");
-#else
+#if NET6_0_OR_GREATER
+                    if (OperatingSystem.IsIOS())
+                    {
+                        throw new InvalidOperationException(
+                            $"Assembly {name} needs to be referenced and explicitly loaded before loading resources");
+                    }
+#endif
                     name = Uri.UnescapeDataString(name);
                     AssemblyNameCache[name] = rv = new AssemblyDescriptor(Assembly.Load(name));
-#endif
                 }
             }
 

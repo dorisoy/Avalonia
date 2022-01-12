@@ -10,7 +10,6 @@
   
   <ItemGroup>
     <SupportedPlatform Include="browser" />
-    <Compile Include="..\..\Shared\PlatformSupport\AssetLoader.cs" />
   </ItemGroup>
 
   <PropertyGroup>
