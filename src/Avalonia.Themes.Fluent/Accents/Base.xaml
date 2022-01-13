@@ -150,6 +150,7 @@
     <StaticResource x:Key="CheckBoxCheckBackgroundFillIndeterminatePressed" ResourceKey="SystemAccentColorDark1" />
     <StaticResource x:Key="RadioButtonOuterEllipseCheckedStrokePressed" ResourceKey="SystemAccentColorDark1" />
     <StaticResource x:Key="RadioButtonOuterEllipseCheckedFillPressed" ResourceKey="SystemAccentColorDark1" />
+    <StaticResource x:Key="CalendarViewCalendarItemRevealBorderBrush" ResourceKey="SystemControlTransparentBrush" />
     <FontFamily x:Key="ContentControlThemeFontFamily">avares://Avalonia.Themes.Fluent/Assets#Inter</FontFamily>
     <sys:Double x:Key="ControlContentThemeFontSize">14</sys:Double>
 
@@ -175,10 +176,6 @@
     <SolidColorBrush x:Key="SystemControlHighlightAltTransparentRevealBorderBrush" Color="Transparent" />
     <SolidColorBrush x:Key="SystemControlBackgroundTransparentRevealBorderBrush" Color="Transparent" />
     <SolidColorBrush x:Key="SystemControlTransparentRevealBackgroundBrush" Color="Transparent" />
-    <!--<RevealBorderBrush x:Key="SystemControlTransparentRevealBorderBrush" TargetTheme="Dark" Color="Transparent" FallbackColor="Transparent" />-->
-    <SolidColorBrush x:Key="SystemControlTransparentRevealBorderBrush" Color="Transparent" />
-    <Color x:Key="RegionColor">#FF000000</Color>
-    <SolidColorBrush x:Key="RegionBrush" Color="{StaticResource RegionColor}" />
 
     <x:Double x:Key="AutoCompleteListMaxHeight">374</x:Double>
     <Thickness x:Key="AutoCompleteListMargin">0,2,0,2</Thickness>
