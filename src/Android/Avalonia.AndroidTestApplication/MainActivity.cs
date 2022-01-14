@@ -20,14 +20,24 @@ namespace Avalonia.AndroidTestApplication
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            if (Avalonia.Application.Current == null)
+            try
             {
-                AppBuilder.Configure<App>()
-                    .UseAndroid()
-                    .SetupWithoutStarting();
+                if (Avalonia.Application.Current == null)
+                {
+                    AppBuilder.Configure<App>()
+                        .UseAndroid()
+                        .SetupWithoutStarting();
+                }
+                base.OnCreate(savedInstanceState);
+                Content = App.CreateSimpleWindow();
             }
-            base.OnCreate(savedInstanceState);
-            Content = App.CreateSimpleWindow();
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(null)
+                    .SetTitle(ex.Message)!
+                    .SetMessage(ex.StackTrace ?? "")!
+                    .Show();
+            }
         }
     }
 
