@@ -6,7 +6,8 @@
 -->
 
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:CompileBindings="True">
   <Style Selector="CalendarItem">
     <Setter Property="CornerRadius" Value="1" />
     <Setter Property="Template">
@@ -163,7 +164,7 @@
     </Setter>
     <Setter Property="DayTitleTemplate">
       <Template>
-        <TextBlock FontWeight="Bold"
+        <TextBlock x:DataType="CalendarItem" FontWeight="Bold"
                    FontSize="9.5"
                    Margin="0,4,0,4"
                    HorizontalAlignment="Center"
